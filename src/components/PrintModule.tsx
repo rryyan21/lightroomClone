@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { usePhotos } from '../contexts/PhotoContext'
-import { Printer, FileText, Layout, Ruler, Settings as SettingsIcon } from 'lucide-react'
+import { Printer, FileText, Layout, Settings as SettingsIcon } from 'lucide-react'
 
 const PrintModule: React.FC = () => {
   const { state } = usePhotos()
@@ -177,7 +177,7 @@ const PrintModule: React.FC = () => {
                     />
                   ) : (
                     <div className="grid grid-cols-2 gap-4 w-full h-full">
-                      {photosToShow.slice(0, 4).map((photo, index) => (
+                      {photosToShow.slice(0, 4).map((photo) => (
                         <img 
                           key={photo.id}
                           src={photo.url}

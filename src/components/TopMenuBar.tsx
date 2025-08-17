@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { FileImage, Download, Upload, Settings, HelpCircle, ChevronDown } from 'lucide-react'
+import { FileImage, Download, Upload, Settings, HelpCircle } from 'lucide-react'
 import { usePhotos } from '../contexts/PhotoContext'
 import { usePhotoExport } from '../hooks/usePhotoExport'
 
@@ -179,8 +179,13 @@ const TopMenuBar: React.FC = () => {
     }
   }
 
+  // Define dropdown menu types
+  type MenuItem = 
+    | { label: string; action: string; shortcut?: string }
+    | { label: '---' }
+
   // Define dropdown menus
-  const dropdownMenus = {
+  const dropdownMenus: Record<string, MenuItem[]> = {
     File: [
       { label: 'New Collection...', action: 'new-collection' },
       { label: 'Import Photos...', action: 'import', shortcut: 'Ctrl+Shift+I' },
@@ -265,11 +270,11 @@ const TopMenuBar: React.FC = () => {
                     ) : (
                       <button
                         key={index}
-                        onClick={() => handleMenuAction(item.action)}
+                        onClick={() => handleMenuAction((item as { action: string }).action)}
                         className="w-full text-left px-3 py-2 text-sm hover:bg-lr-darker transition-colors flex items-center justify-between"
                       >
                         <span>{item.label}</span>
-                        {item.shortcut && (
+                        {'shortcut' in item && item.shortcut && (
                           <span className="text-lr-gray text-xs">{item.shortcut}</span>
                         )}
                       </button>
